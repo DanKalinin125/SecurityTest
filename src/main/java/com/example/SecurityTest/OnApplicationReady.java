@@ -15,7 +15,7 @@ public class OnApplicationReady {
 
     @Autowired
     private MyRoleRepository myRoleRepository;
-    private final String[] ROLES = {"ROLE_USER", "ROLE_ADMIN"};
+    private final String[] ROLES = {"USER", "ADMIN"};
 
     @EventListener(ApplicationReadyEvent.class)
     public void onApplicationReady() {

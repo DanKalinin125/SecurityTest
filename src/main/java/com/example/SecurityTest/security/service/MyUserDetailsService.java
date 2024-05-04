@@ -2,8 +2,8 @@ package com.example.SecurityTest.security.service;
 
 import com.example.SecurityTest.entity.MyUser;
 import com.example.SecurityTest.repository.MyUserRepository;
+import com.example.SecurityTest.security.userdetails.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,10 +19,6 @@ public class MyUserDetailsService implements UserDetailsService {
         if (myUser == null) {
             throw new UsernameNotFoundException("Unknown user: " + username);
         }
-        return User.builder()
-                .username(myUser.getUsername())
-                .password(myUser.getPassword())
-                .roles(String.valueOf(myUser.getRole()))
-                .build();
+        return new MyUserDetails(myUser);
     }
 }

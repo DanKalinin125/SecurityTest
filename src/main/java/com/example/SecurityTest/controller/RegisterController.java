@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @RestController
 @RequestMapping("/auth")
 @AllArgsConstructor
@@ -24,8 +27,6 @@ public class RegisterController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterDTO registerDTO) {
-        System.out.println(registerDTO.getUsername());
-
         // add check for username exists in a DB
         if (myUserRepository.existsByUsername(registerDTO.getUsername())) {
             return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
@@ -42,13 +43,14 @@ public class RegisterController {
                 .email(registerDTO.getEmail())
                 .password(passwordEncoder.encode(registerDTO.getPassword())).build();
 
-        MyRole myRole = myRoleRepository.findByName("ROLE_USER");
-        myUser.setRole(myRole);
+        MyRole myRole = myRoleRepository.findByName("USER");
+        Set<MyRole> roles = new HashSet<>();
+        roles.add(myRole);
+        myUser.setRoles(roles);
 
         myUserRepository.save(myUser);
 
         return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
-
     }
 
 

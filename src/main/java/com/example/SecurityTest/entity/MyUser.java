@@ -6,13 +6,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users")
-public class MyUser {
+public class MyUser implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -26,7 +31,6 @@ public class MyUser {
     @Column(nullable = false)
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name="role_id")
-    private MyRole role;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<MyRole> roles = new HashSet<>();
 }
