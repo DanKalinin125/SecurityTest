@@ -20,15 +20,15 @@ public class OnApplicationReady {
     @EventListener(ApplicationReadyEvent.class)
     public void onApplicationReady() {
         List<MyRole> alreadyInitMyRoles = myRoleRepository.findAll();
-        for (String roleName : ROLES){
+        for (String roleName : ROLES) {
             boolean containedFlag = false;
-            for (MyRole myRole : alreadyInitMyRoles){
-                if (Objects.equals(myRole.getName(), roleName)){
+            for (MyRole myRole : alreadyInitMyRoles) {
+                if (Objects.equals(myRole.getName(), roleName)) {
                     containedFlag = true;
                     break;
                 }
             }
-            if (!containedFlag){
+            if (!containedFlag) {
                 myRoleRepository.save(MyRole.builder().name(roleName).build());
             }
         }

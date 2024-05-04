@@ -2,7 +2,6 @@ package com.example.SecurityTest.controller;
 
 import com.example.SecurityTest.dto.CardDTO;
 import com.example.SecurityTest.service.CardService;
-import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
